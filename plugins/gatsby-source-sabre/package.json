@@ -1,0 +1,11 @@
+{
+  "name": "gatsby-source-sabre",
+  "author": "Cameron Aziz",
+  "version": "0.1.0",
+  "description": "Gatsby Source Plugin for Sabre",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "node-fetch": "^2.2.1",
+    "query-string": "^6.2.0"
+  }
+}

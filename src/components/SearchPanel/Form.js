@@ -2,10 +2,11 @@ import React, { useState, createRef } from 'react';
 import Flatpickr from 'react-flatpickr';
 import { cold } from 'react-hot-loader';
 import 'flatpickr/dist/themes/material_green.css';
-import AirportField from './AirportField';
 import loop from '../../images/loop.svg';
 import arrowRight from '../../images/arrow-right.svg';
-import Dropdown from './Dropdown';
+import { AutoComplete, Dropdown, Keypad } from '../Input';
+import { airports, passengers } from './data';
+import LengthOfStay from './LengthOfStay';
 
 const Form = () => {
   const [monthSearch, setMonthSearch] = useState(false);
@@ -25,16 +26,22 @@ const Form = () => {
 
   const toggleRoundTrip = () => {
     setRoundTrip(!roundTrip);
-    if (dateRange.length > 1) {
+    if (dateRange && dateRange.length > 1) {
       setDateRange(dateRange[0]);
     }
   };
+
+  const renderSuggestion = suggestion => (
+    <div>
+      {suggestion.name} ({suggestion.code})
+    </div>
+  );
 
   let icon = loop;
   if (!roundTrip) {
     icon = arrowRight;
   }
-
+  const searchKeys = ['name', 'code'];
   return (
     <form className="w-full max-w-lg">
       <div className="flex flex-wrap -mx-3 mb-6">
@@ -42,16 +49,17 @@ const Form = () => {
           <label
             className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
             htmlFor="origin"
-          >
-            Origin
+          >Origin
           </label>
-          <AirportField
-            selectField={(d) => {
-              setOrigin(d);
-            }}
+          <AutoComplete
+            selectField={(d) => { setOrigin(d); }}
+            searchKeys={searchKeys}
             className="text-center appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
             id="origin"
             placeholder="Airport Name or Code"
+            choices={airports}
+            renderSuggestion={renderSuggestion}
+            suggestionKey="name"
           />
           {expertMode && (
             <input
@@ -73,16 +81,17 @@ const Form = () => {
           <label
             className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
             htmlFor="destination"
-          >
-            Destination
+          >Destination
           </label>
-          <AirportField
-            selectField={(d) => {
-              setDestination(d);
-            }}
+          <AutoComplete
+            selectField={(d) => { setDestination(d); }}
+            searchKeys={searchKeys}
             className="text-center appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
-            id="destination"
+            id="origin"
             placeholder="Airport Name or Code"
+            choices={airports}
+            renderSuggestion={renderSuggestion}
+            suggestionKey="name"
           />
           {expertMode && roundTrip && (
             <input
@@ -119,21 +128,7 @@ const Form = () => {
               position: ' center',
             }}
           />
-          {monthSearch && roundTrip && (
-            <div className="w-2/3 flex">
-              <div className="block uppercase tracking-wide text-grey-darker text-xs font-bold self-center whitespace-no-wrap mr-6">
-                Length of Stay
-              </div>
-              <input className="text-center appearance-none w-1/5 bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" />
-              <div className="block uppercase tracking-wide text-grey-darker text-xs font-bold self-center whitespace-no-wrap mx-3">
-                to
-              </div>
-              <input className="text-center appearance-none w-1/5 bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey" />
-              <div className="block uppercase tracking-wide text-grey-darker text-xs font-bold self-center whitespace-no-wrap ml-3">
-                nights
-              </div>
-            </div>
-          )}
+          {monthSearch && roundTrip && <LengthOfStay />}
         </div>
       </div>
       <div style={{ display: 'flex', width: '1005' }}>
@@ -174,15 +169,14 @@ const Form = () => {
           <div>Expert Mode</div>
         </div>
         <div style={{ flex: 1, minWidth: '20em', alignSelf: 'flex-start' }}>
-          <Dropdown />
+          <Dropdown choices={passengers} />
         </div>
       </div>
       {origin && destination && dateRange && dateRange.length > 1 && (
         <button
           type="button"
           className="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded w-1/2"
-        >
-          Search
+        >Search
         </button>
       )}
     </form>

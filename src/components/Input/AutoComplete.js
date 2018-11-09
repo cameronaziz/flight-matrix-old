@@ -4,56 +4,34 @@ import Autosuggest from 'react-autosuggest';
 import { cold } from 'react-hot-loader';
 import Fuse from 'fuse.js';
 
-const airports = [
-  {
-    code: 'LAX',
-    name: 'Los Angeles International Airport',
-  },
-  {
-    code: 'JFK',
-    name: 'John F. Kennedy International Airport',
-  },
-  {
-    code: 'EWR',
-    name: 'Newark Liberty International Airport',
-  },
-];
-
-const getSuggestions = (value) => {
-  const options = {
-    shouldSort: true,
-    threshold: 0.6,
-    location: 0,
-    distance: 100,
-    maxPatternLength: 32,
-    minMatchCharLength: 2,
-    keys: [
-      'name',
-      'code',
-    ],
-  };
-  const fuse = new Fuse(airports, options); // "list" is the item array
-  const result = fuse.search(value);
-  return result;
-};
-
-const getSuggestionValue = suggestion => suggestion.name;
-
-const renderSuggestion = suggestion => (
-  <div>
-    {suggestion.name} ({suggestion.code})
-  </div>
-);
-
-const renderSuggestionsContainer = ({ containerProps, children }) => (
-  <div {... containerProps} className="autosuggest-container">
-    {children}
-  </div>
-);
-
-const AirportField = ({ className, placeholder, selectField }) => {
+const AutoComplete = ({
+  className, placeholder, selectField, choices, searchKeys, renderSuggestion, suggestionKey
+}) => {
   const [formValue, setFormValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
+
+  const getSuggestions = (value) => {
+    const options = {
+      shouldSort: true,
+      threshold: 0.6,
+      location: 0,
+      distance: 100,
+      maxPatternLength: 32,
+      minMatchCharLength: 2,
+      keys: searchKeys,
+    };
+    const fuse = new Fuse(choices, options); // "list" is the item array
+    const result = fuse.search(value);
+    return result;
+  };
+
+  const getSuggestionValue = suggestion => suggestion[suggestionKey];
+
+  const renderSuggestionsContainer = ({ containerProps, children }) => (
+    <div {... containerProps} className="autosuggest-container">
+      {children}
+    </div>
+  );
 
   const onChange = (event, { newValue }) => {
     setFormValue(newValue);
@@ -96,16 +74,22 @@ const AirportField = ({ className, placeholder, selectField }) => {
   );
 };
 
-AirportField.propTypes = {
+AutoComplete.propTypes = {
   selectField: PropTypes.func,
   placeholder: PropTypes.string,
   className: PropTypes.string,
+  choices: PropTypes.arrayOf(PropTypes.shape({
+
+  })).isRequired,
+  searchKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
+  renderSuggestion: PropTypes.func.isRequired,
+  suggestionKey: PropTypes.string.isRequired,
 };
 
-AirportField.defaultProps = {
+AutoComplete.defaultProps = {
   selectField: undefined,
   placeholder: undefined,
   className: undefined,
 };
 
-export default cold(AirportField);
+export default cold(AutoComplete);

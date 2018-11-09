@@ -21,12 +21,12 @@
 }
 
 .flatpickr-time {
-  display: none;
+  display: none !important;
 }
 
 .flatpickr-calendar:before,
 .flatpickr-calendar:after {
-  left: 50%;
+  left: 50% !important;
 }
 
 .no-outline:focus {
@@ -97,6 +97,14 @@
   border: 1px solid #f9f9f9;
   border-radius: 5px;
 }
+#keyboard li.last {
+  margin-right: 0;
+}
+
+#keyboard li.bottom {
+  margin-bottom: 0;
+}
+
 .capslock,
 .tab,
 .left-shift,
