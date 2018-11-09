@@ -39,7 +39,7 @@
   padding: 10px 5px;
   height: 40px;
   text-decoration: none;
-  color: #2a393b;
+  color: #fff;
   background-color: #4dc0b5;
   border-bottom: 1px solid #557376;
   -moz-transition: all 0.3s ease-out;
@@ -65,7 +65,7 @@
   -o-transition: linear 0.1s;
   -webkit-transition: linear 0.1s;
   transition: linear 0.1s;
-  background-color: #4dc0b5;
+  background-color: #73b3e7;
 }
 .card-drop > a.toggle:active {
   -moz-transform: rotateX(60deg);
@@ -120,12 +120,12 @@
   width: 100%;
 }
 .card-drop ul li a:hover {
-  background-color: #1b65a1;
+  background-color: #3490dc;
   color: #edf1f2;
 }
 .card-drop ul li.active a {
   color: #E6FFFF;
-  background-color: #3490dc;
+  background-color: #73b3e7;
   cursor: default;
 }
 .card-drop ul li.closed a:hover {

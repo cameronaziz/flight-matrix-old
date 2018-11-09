@@ -51,12 +51,7 @@ const MainPanel = ({
             renderSuggestion={renderSuggestion}
             suggestionKey="name"
           />
-          {expertMode && (
-          <input
-            placeholder="Outbound Routing Codes"
-            className="text-center appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mt-3 leading-tight focus:outline-none focus:bg-white focus:border-grey"
-          />
-          )}
+
         </div>
         <div
           role="button"
@@ -83,14 +78,30 @@ const MainPanel = ({
             renderSuggestion={renderSuggestion}
             suggestionKey="name"
           />
-          {expertMode && roundTrip && (
-          <input
-            placeholder="Return Routing Codes"
-            className="text-center appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mt-3 leading-tight focus:outline-none focus:bg-white focus:border-grey"
-          />
-          )}
+
         </div>
       </div>
+      {expertMode && (
+      <input
+        style={{ display: 'inline-block' }}
+        placeholder={`${roundTrip ? 'Outbound ' : ''}Routing Codes`}
+        className={`text-center appearance-none block w-${roundTrip ? '1/3' : '2/3'} bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 mt-6 leading-tight focus:outline-none focus:bg-white focus:border-grey`}
+      />
+      )}
+      {expertMode && roundTrip && (
+      <input
+        style={{ display: 'inline-block' }}
+        placeholder="Return Routing Codes"
+        className="text-center appearance-none block w-1/3 bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 ml-8 mt-6 leading-tight focus:outline-none focus:bg-white focus:border-grey"
+      />
+      )}
+      {expertMode
+          && (
+          <input
+            placeholder="Carrier Codes"
+            className="text-center appearance-none block w-2/3 mx-auto bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mt-3 mb-8 leading-tight focus:outline-none focus:bg-white focus:border-grey"
+          />
+          )}
       <div className="flex flex-wrap -mx-3 mb-6">
         <div className="w-3/4 px-3" style={{ margin: '0 auto' }}>
           <label
@@ -101,7 +112,7 @@ const MainPanel = ({
           </label>
           <Flatpickr
             ref={datePickerRef}
-            className="text-center appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-grey"
+            className={`text-center appearance-none block w-${roundTrip ? 'full' : '4/5 mx-auto'} bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-grey`}
             data-enable-time
             value={dateRange}
             onChange={selectDate}
