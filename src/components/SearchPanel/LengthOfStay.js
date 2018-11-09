@@ -34,7 +34,7 @@ const LengthOfStay = () => {
   };
 
   return (
-    <div className="w-2/3 flex">
+    <div className="w-full flex">
       <div className="block uppercase tracking-wide text-grey-darker text-xs font-bold self-center whitespace-no-wrap ml-4 mr-8">
         Length of Stay
       </div>

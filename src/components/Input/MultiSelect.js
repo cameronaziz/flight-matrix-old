@@ -4,7 +4,7 @@ import { cold } from 'react-hot-loader';
 import './dropdown.css';
 
 
-const Dropdown = ({ choices, label }) => {
+const MultiSelect = ({ choices, label }) => {
   const [open, setOpen] = useState(false);
   const [selection, setSelection] = useState(null);
 
@@ -76,7 +76,7 @@ const Dropdown = ({ choices, label }) => {
   );
 };
 
-Dropdown.propTypes = {
+MultiSelect.propTypes = {
   label: PropTypes.string,
   choices: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.string,
@@ -91,45 +91,8 @@ Dropdown.propTypes = {
   ])).isRequired,
 };
 
-
-Dropdown.defaultProps = {
+MultiSelect.defaultProps = {
   label: undefined,
 };
 
-
-export default cold(Dropdown);
-
-
-/* <div className="drop-container">
-      <div
-        tabIndex={0}
-        role="button"
-        onKeyPress={() => { setOpen(!open); }}
-        onClick={() => { setOpen(!open); }}
-        className={`bg-grey-lighter text-grey-darker border border-grey-lighter rounded drop${open ? ' visible opacity' : ''}`}
-      >
-        <div className="option active placeholder text-xs tracking-wide text-grey-darker font-bold" data-value="placeholder">
-          {selection ? `${selection} passenger${selection > 1 ? 's' : ''}` : 'No of Passengers'}
-        </div>
-        {choices.map((choice) => {
-          let { value, label } = choice;
-          if (typeof choice === 'string') {
-            value = choice;
-            label = choice;
-          }
-          return (
-            <div
-              key={value}
-              tabIndex={0}
-              role="button"
-              className={`option${selection === value ? 'active' : ''}`}
-              onKeyPress={(e) => { select(e, value); }}
-              onClick={(e) => { select(e, value); }}
-            >{label}
-            </div>
-          );
-        })}
-      </div>
-      <div className="drop-offset" />
-
-    </div> */
+export default cold(MultiSelect);

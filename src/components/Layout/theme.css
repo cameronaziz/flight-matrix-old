@@ -33,49 +33,6 @@
   outline: 0 !important;
 }
 
-.toggle > input[type="checkbox"] {
-  height: 0;
-  width: 0;
-  visibility: hidden;
-}
-
-.toggle > label {
-  cursor: pointer;
-  text-indent: -9999px;
-  width: 50px;
-  height: 25px;
-  background: grey;
-  display: block;
-  border-radius: 25px;
-  position: relative;
-}
-
-.toggle > label:after {
-  content: "";
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 21px;
-  height: 21px;
-  background: #fff;
-  border-radius: 21px;
-  transition: 0.3s;
-}
-
-.toggle > input:checked + label {
-  background: #4dc0b5;
-}
-
-.toggle > input:checked + label:after {
-  left: calc(100% - 2px);
-  transform: translateX(-100%);
-}
-
-.toggle > div {
-  left: 80px;
-  float: left;
-}
-
 #container {
   margin: 100px auto;
   width: 760px;

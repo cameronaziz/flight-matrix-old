@@ -4,7 +4,7 @@ import SearchPanel from '../components/SearchPanel';
 
 const IndexPage = () => (
   <Layout>
-    <div className="text-center max-w-lg">
+    <div className="text-center max-w-xl">
       <SearchPanel />
       <div style={{ marginTop: '6rem' }}>
         <p className="leading-loose align-bottom">

@@ -5,7 +5,6 @@ import Helmet from 'react-helmet';
 import Header from '../Header';
 import Footer from '../Footer';
 import './index.css';
-import './drop.css';
 import './theme.css';
 
 const Layout = ({ children }) => (
