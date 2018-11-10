@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { cold } from 'react-hot-loader';
-import { Keypad } from '../Input';
+import { Keypad } from '../../Input';
 
 const LengthOfStay = () => {
   const [focusedField, setFocusedField] = useState(null);

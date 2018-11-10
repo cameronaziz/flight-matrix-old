@@ -1,17 +1,4 @@
-export const airports = [
-  {
-    code: 'LAX',
-    name: 'Los Angeles International Airport',
-  },
-  {
-    code: 'JFK',
-    name: 'John F. Kennedy International Airport',
-  },
-  {
-    code: 'EWR',
-    name: 'Newark Liberty International Airport',
-  },
-];
+export { default as airports } from './airports';
 
 export const passengers = [
   {

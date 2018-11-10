@@ -1,26 +1,35 @@
 import React, { createRef } from 'react';
+import PropTypes from 'prop-types';
 import Flatpickr from 'react-flatpickr';
 import { cold } from 'react-hot-loader';
 import 'flatpickr/dist/themes/material_green.css';
-import { AutoComplete } from '../Input';
-import { airports } from './data';
+import { AutoComplete } from '../../Input';
+import { airports } from '../data';
 import LengthOfStay from './LengthOfStay';
-import loop from '../../images/loop.svg';
-import arrowRight from '../../images/arrow-right.svg';
+import loop from '../../../images/loop.svg';
+import arrowRight from '../../../images/arrow-right.svg';
 
-const searchKeys = ['name', 'code'];
+const searchKeys = ['name', 'iata'];
 
 const MainPanel = ({
-  setOrigin, expertMode, toggleRoundTrip, setDestination, roundTrip, monthSearch, setDateRange, dateRange,
+  setOrigin,
+  expertMode,
+  toggleRoundTrip,
+  setDestination,
+  roundTrip,
+  monthSearch,
+  setDateRange,
+  dateRange,
 }) => {
   const datePickerRef = createRef();
   const renderSuggestion = suggestion => (
     <div>
-      {suggestion.name} ({suggestion.code})
+      {suggestion.name} ({suggestion.iata})
     </div>
   );
 
   const selectDate = (datePick) => {
+    console.log(dateRange);
     if (datePick.length > 1) {
       datePickerRef.current.close();
     }
@@ -42,6 +51,7 @@ const MainPanel = ({
           >Origin
           </label>
           <AutoComplete
+            limitResults={10}
             selectField={(d) => { setOrigin(d); }}
             searchKeys={searchKeys}
             className="text-center appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
@@ -51,11 +61,10 @@ const MainPanel = ({
             renderSuggestion={renderSuggestion}
             suggestionKey="name"
           />
-
         </div>
         <div
           role="button"
-          tabIndex={0}
+          tabIndex={-1}
           className="w-full md:w-1/5 px-3 self-center no-outline cursor-pointer"
           onKeyDown={toggleRoundTrip}
           onClick={toggleRoundTrip}
@@ -69,6 +78,7 @@ const MainPanel = ({
           >Destination
           </label>
           <AutoComplete
+            limitResults={10}
             selectField={(d) => { setDestination(d); }}
             searchKeys={searchKeys}
             className="text-center appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-grey"
@@ -134,6 +144,21 @@ const MainPanel = ({
       </div>
     </div>
   );
+};
+
+MainPanel.propTypes = {
+  dateRange: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
+  setOrigin: PropTypes.func.isRequired,
+  expertMode: PropTypes.bool.isRequired,
+  toggleRoundTrip: PropTypes.func.isRequired,
+  setDestination: PropTypes.func.isRequired,
+  roundTrip: PropTypes.bool.isRequired,
+  monthSearch: PropTypes.bool.isRequired,
+  setDateRange: PropTypes.func.isRequired,
+};
+
+MainPanel.defaultProps = {
+  dateRange: null,
 };
 
 export default cold(MainPanel);

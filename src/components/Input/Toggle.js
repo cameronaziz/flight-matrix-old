@@ -9,7 +9,14 @@ const Toggle = ({
   return (
     <div className="toggle">
       <div className="inputGroup">
-        <input id={id} name={id} type="checkbox" checked={checked} onChange={onChange} />
+        <input
+          id={id}
+          name={id}
+          type="checkbox"
+          checked={checked}
+          onChange={onChange}
+          tabIndex={0} q
+        />
         <label htmlFor={id}>{label}</label>
       </div>
     </div>

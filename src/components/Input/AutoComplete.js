@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
 import { cold } from 'react-hot-loader';
 import Fuse from 'fuse.js';
+import './autoComplete.css';
 
 const AutoComplete = ({
-  className, placeholder, selectField, choices, searchKeys, renderSuggestion, suggestionKey
+  className, placeholder, selectField, choices, searchKeys, renderSuggestion, suggestionKey, limitResults,
 }) => {
   const [formValue, setFormValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
@@ -22,13 +23,19 @@ const AutoComplete = ({
     };
     const fuse = new Fuse(choices, options); // "list" is the item array
     const result = fuse.search(value);
+    if (limitResults) {
+      return result.slice(0, limitResults);
+    }
     return result;
   };
 
   const getSuggestionValue = suggestion => suggestion[suggestionKey];
 
   const renderSuggestionsContainer = ({ containerProps, children }) => (
-    <div {... containerProps} className="autosuggest-container">
+    <div
+      {... containerProps}
+      className="autosuggest-container"
+    >
       {children}
     </div>
   );

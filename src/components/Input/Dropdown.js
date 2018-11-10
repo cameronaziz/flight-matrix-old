@@ -57,6 +57,8 @@ const Dropdown = ({ choices, label }) => {
             }
             return (
               <li
+                tabIndex={-1}
+                key={value}
                 className={`${i === selection ? 'active' : ''} ${liStyle.className}`}
                 style={{
                   zIndex: 5,

@@ -33,14 +33,14 @@ const Form = () => {
             dateRange={dateRange}
           />
         </div>
-        <dib style={{width: '25%' }}>
+        <div style={{width: '25%' }}>
           <SidePanel
             setMonthSearch={setMonthSearch}
             monthSearch={monthSearch}
             setExportMode={setExportMode}
             expertMode={expertMode}
           />
-        </dib>
+        </div>
       </div>
       {origin && destination && dateRange && dateRange.length > 1 && (
         <button
